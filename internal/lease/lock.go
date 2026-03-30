@@ -2,6 +2,7 @@ package lease
 
 import (
 	"context"
+	"math"
 	"time"
 
 	coordinationv1 "k8s.io/api/coordination/v1"
@@ -22,7 +23,7 @@ type kubeLeaseLock struct {
 	leaseName      string
 	namespace      string
 	holderIdentity string
-	leaseDuration  int // seconds
+	leaseDuration  int32 // seconds
 	cancelFunc     context.CancelFunc
 }
 
@@ -32,16 +33,27 @@ func NewKubeLeaseLock(client kubernetes.Interface, leaseName, namespace, holderI
 		leaseName:      leaseName,
 		namespace:      namespace,
 		holderIdentity: holderIdentity,
-		leaseDuration:  leaseDurationSeconds,
+		leaseDuration:  sanitizeLeaseDurationSeconds(leaseDurationSeconds),
+	}
+}
+
+func sanitizeLeaseDurationSeconds(leaseDurationSeconds int) int32 {
+	switch {
+	case leaseDurationSeconds < 0:
+		return 0
+	case leaseDurationSeconds > math.MaxInt32:
+		return math.MaxInt32
+	default:
+		return int32(leaseDurationSeconds)
 	}
 }
 
 func (k *kubeLeaseLock) Lock(ctx context.Context) error {
 	backoff := wait.Backoff{
 		Duration: time.Second, // start with 1 second
-		Factor:   1.5,         //nolint:gomnd // multiply by 1.5 on each retry
-		Jitter:   0.5,         //nolint:gomnd // add 50% jitter to wait time on each retry
-		Steps:    100,         //nolint:gomnd // retry 100 times
+		Factor:   1.5,         //nolint:mnd // multiply by 1.5 on each retry
+		Jitter:   0.5,         //nolint:mnd // add 50% jitter to wait time on each retry
+		Steps:    100,         //nolint:mnd // retry 100 times
 		Cap:      time.Hour,   // but never wait more than 1 hour
 	}
 
@@ -54,7 +66,7 @@ func (k *kubeLeaseLock) Lock(ctx context.Context) error {
 			},
 			Spec: coordinationv1.LeaseSpec{
 				HolderIdentity:       &k.holderIdentity,
-				LeaseDurationSeconds: ptr.To(int32(k.leaseDuration)),
+				LeaseDurationSeconds: ptr.To(k.leaseDuration),
 				AcquireTime:          &timestamp,
 				RenewTime:            &timestamp,
 			},
@@ -97,7 +109,7 @@ func (k *kubeLeaseLock) Lock(ctx context.Context) error {
 
 func (k *kubeLeaseLock) renewLeasePeriodically(ctx context.Context) {
 	// let's renew the lease every 1/2 of the lease duration; use milliseconds for ticker
-	ticker := time.NewTicker(time.Duration(k.leaseDuration*500) * time.Millisecond) //nolint:gomnd
+	ticker := time.NewTicker(time.Duration(k.leaseDuration) * 500 * time.Millisecond)
 	defer ticker.Stop()
 
 	for {
