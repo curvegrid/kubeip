@@ -509,6 +509,17 @@ func Test_createAccessConfig(t *testing.T) {
 			},
 		},
 		{
+			name: "create access config for IPv4 address defaults network tier when address is nil",
+			args: args{},
+			want: &compute.AccessConfig{
+				Name:        defaultNetworkName,
+				Type:        defaultAccessConfigType,
+				Kind:        accessConfigKind,
+				NatIP:       "",
+				NetworkTier: defaultNetworkTier,
+			},
+		},
+		{
 			name: "create access config for IPv6 address",
 			args: args{
 				address: &compute.Address{
