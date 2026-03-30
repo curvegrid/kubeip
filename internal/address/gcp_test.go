@@ -365,8 +365,8 @@ func Test_gcpAssigner_Assign(t *testing.T) {
 					mockCall.EXPECT().OrderBy("test-order-by").Return(mockCall).Once()
 					mockCall.EXPECT().Do().Return(&compute.AddressList{
 						Items: []*compute.Address{
-							{Name: "test-address-3", Status: reservedStatus, Address: "100.0.0.3", NetworkTier: defaultNetworkTier, AddressType: "EXTERNAL"},
-							{Name: "test-address-4", Status: reservedStatus, Address: "100.0.0.4", NetworkTier: defaultNetworkTier, AddressType: "EXTERNAL"},
+							{Name: "test-address-3", Status: reservedStatus, Address: "100.0.0.3", NetworkTier: "STANDARD", AddressType: "EXTERNAL"},
+							{Name: "test-address-4", Status: reservedStatus, Address: "100.0.0.4", NetworkTier: "STANDARD", AddressType: "EXTERNAL"},
 						},
 					}, nil).Once()
 					return mock
@@ -392,10 +392,11 @@ func Test_gcpAssigner_Assign(t *testing.T) {
 					mock := mocks.NewAddressManager(t)
 					mock.EXPECT().DeleteAccessConfig("test-project", "test-zone", "test-instance-0", "test-access-config", "test-network-interface", "test-fingerprint").Return(&compute.Operation{Name: "test-operation", Status: "DONE"}, nil)
 					mock.EXPECT().AddAccessConfig("test-project", "test-zone", "test-instance-0", "test-network-interface", "test-fingerprint", &compute.AccessConfig{
-						Name:  defaultNetworkName,
-						Type:  defaultAccessConfigType,
-						Kind:  accessConfigKind,
-						NatIP: "100.0.0.3",
+						Name:        defaultNetworkName,
+						Type:        defaultAccessConfigType,
+						Kind:        accessConfigKind,
+						NatIP:       "100.0.0.3",
+						NetworkTier: "STANDARD",
 					}).Return(&compute.Operation{Name: "test-operation", Status: "DONE"}, nil)
 					mock.EXPECT().GetAddress("test-project", "test-region", "test-address-3").Return(&compute.Address{Name: "test-address-3", Status: reservedStatus}, nil)
 					return mock
@@ -494,15 +495,17 @@ func Test_createAccessConfig(t *testing.T) {
 			name: "create access config for IPv4 address",
 			args: args{
 				address: &compute.Address{
-					Name:    "test-address",
-					Address: "100.0.0.1",
+					Name:        "test-address",
+					Address:     "100.0.0.1",
+					NetworkTier: "STANDARD",
 				},
 			},
 			want: &compute.AccessConfig{
-				Name:  defaultNetworkName,
-				Type:  defaultAccessConfigType,
-				Kind:  accessConfigKind,
-				NatIP: "100.0.0.1",
+				Name:        defaultNetworkName,
+				Type:        defaultAccessConfigType,
+				Kind:        accessConfigKind,
+				NatIP:       "100.0.0.1",
+				NetworkTier: "STANDARD",
 			},
 		},
 		{

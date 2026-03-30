@@ -441,6 +441,9 @@ func createAccessConfig(address *compute.Address, ipv6 bool) *compute.AccessConf
 		accessConfig.ExternalIpv6PrefixLength = addressPrefixLengthOrDefault(address)
 	} else {
 		accessConfig.NatIP = addressAddressOrEmpty(address)
+		if address != nil {
+			accessConfig.NetworkTier = addressNetworkTierOrDefault(address)
+		}
 	}
 
 	return accessConfig
