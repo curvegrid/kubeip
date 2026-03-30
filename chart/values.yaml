@@ -8,7 +8,7 @@ namespaceOverride: kube-system
 
 # Configuration settings for the container image.
 image:
-  repository: doitintl/kubeip-agent
+  repository: ghcr.io/curvegrid/kubeip-agent
   tag: latest
 
 # Configuration for the Kubernetes Service Account.

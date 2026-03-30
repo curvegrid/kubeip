@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/doitintl/kubeip/internal/cloud"
-	amock "github.com/doitintl/kubeip/mocks/address"
-	mocks "github.com/doitintl/kubeip/mocks/cloud"
+	"github.com/curvegrid/kubeip/internal/cloud"
+	amock "github.com/curvegrid/kubeip/mocks/address"
+	mocks "github.com/curvegrid/kubeip/mocks/cloud"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	tmock "github.com/stretchr/testify/mock"

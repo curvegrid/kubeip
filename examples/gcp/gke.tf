@@ -300,7 +300,7 @@ resource "kubernetes_daemonset" "kubeip_daemonset" {
         }
         container {
           name              = "kubeip-agent"
-          image             = "doitintl/kubeip-agent:${var.kubeip_version}"
+          image             = "ghcr.io/curvegrid/kubeip-agent:${var.kubeip_version}"
           image_pull_policy = "Always"
           env {
             name = "NODE_NAME"

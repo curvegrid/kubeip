@@ -1,4 +1,4 @@
-module github.com/doitintl/kubeip
+module github.com/curvegrid/kubeip
 
 go 1.26
 
