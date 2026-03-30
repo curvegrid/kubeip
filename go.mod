@@ -1,6 +1,6 @@
 module github.com/doitintl/kubeip
 
-go 1.21
+go 1.26
 
 require (
 	cloud.google.com/go/compute/metadata v0.2.3
