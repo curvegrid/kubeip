@@ -38,11 +38,13 @@ export GOARCH=$(TARGETARCH)
 all: lint test build ; $(info $(M) build, test and deploy ...) @ ## release cycle
 
 # Tools
-setup-lint:
+setup-bin:
 	@mkdir -p $(BIN)
+
+setup-lint: setup-bin
 	GOBIN=$(BIN) $(GOCMD) install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(GOLINT_VERSION)
-setup-mockery:
-	@mkdir -p $(BIN)
+
+setup-mockery: setup-bin
 	GOBIN=$(BIN) $(GOCMD) install github.com/vektra/mockery/v2@v2.35.2
 
 # Tasks

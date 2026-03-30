@@ -109,6 +109,8 @@ linters:
       locale: US
       ignore-rules:
         - cancelled
+    # Preserve the old gosimple + stylecheck scope without taking on the full
+    # staticcheck ruleset during the v2 migration.
     staticcheck:
       checks:
         - S*
@@ -144,6 +146,8 @@ linters:
           - gosec
       - path: (.+)\.go$
         text: Using the variable on range scope `tt` in function literal
+      # Keep the existing internal/types package layout instead of renaming
+      # packages as part of the lint migration.
       - path: internal/types/.*\.go
         text: avoid meaningless package names
         linters:
@@ -155,6 +159,8 @@ linters:
       - examples$
 
 formatters:
+  # In golangci-lint v2, formatters run under `fmt` rather than `run`, so CI
+  # and `make lint` enforce formatting explicitly with `fmt --diff`.
   enable:
     - gci
     - gofmt
