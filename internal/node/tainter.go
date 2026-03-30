@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/doitintl/kubeip/internal/types"
+	"github.com/curvegrid/kubeip/internal/types"
 	"github.com/pkg/errors"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

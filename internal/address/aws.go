@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
-	"github.com/doitintl/kubeip/internal/cloud"
+	"github.com/curvegrid/kubeip/internal/cloud"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )

@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/doitintl/kubeip/internal/config"
-	"github.com/doitintl/kubeip/internal/types"
+	"github.com/curvegrid/kubeip/internal/config"
+	"github.com/curvegrid/kubeip/internal/types"
 	"github.com/sirupsen/logrus"
 )
 

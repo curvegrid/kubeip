@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	cloud "github.com/doitintl/kubeip/internal/cloud"
+	cloud "github.com/curvegrid/kubeip/internal/cloud"
 	mock "github.com/stretchr/testify/mock"
 )
 

@@ -1,9 +1,9 @@
-![build](https://github.com/doitintl/kubeip/workflows/build/badge.svg) [![Go Report Card](https://goreportcard.com/badge/github.com/doitintl/kubeip)](https://goreportcard.com/report/github.com/doitintl/kubeip) ![Docker Pulls](https://img.shields.io/docker/pulls/doitintl/kubeip-agent)
-
 # KubeIP v2
 
+![build](https://github.com/curvegrid/kubeip/workflows/build/badge.svg) [![Go Report Card](https://goreportcard.com/badge/github.com/curvegrid/kubeip)](https://goreportcard.com/report/github.com/curvegrid/kubeip) ![Docker Pulls](https://img.shields.io/docker/pulls/curvegrid/kubeip-agent)
+
 Welcome to KubeIP v2, a complete overhaul of the popular [DoiT](https://www.doit.com/)
-KubeIP [v1-main](https://github.com/doitintl/kubeip/tree/v1-main) open-source project, originally developed
+KubeIP [v1-main](https://github.com/curvegrid/kubeip/tree/v1-main) open-source project, originally developed
 by [Aviv Laufer](https://github.com/avivl).
 
 KubeIP v2 expands its support beyond Google Cloud (as in v1) to include AWS and Oracle Cloud Infrastructure(OCI), and it's designed to be extendable to other cloud providers
@@ -12,7 +12,7 @@ reliability and ease of use.
 
 ## What happens with KubeIP v1
 
-KubeIP v1 is still available in the [v1-main](https://github.com/doitintl/kubeip/tree/v1-main) branch. No further development is planned. We
+KubeIP v1 is still available in the [v1-main](https://github.com/curvegrid/kubeip/tree/v1-main) branch. No further development is planned. We
 will fix critical bugs and security issues, but we will not add new features.
 
 ## What KubeIP v2 does?
@@ -112,7 +112,7 @@ spec:
         kubeip.com/public: "true"
       containers:
         - name: kubeip
-          image: doitintl/kubeip-agent
+          image: ghcr.io/curvegrid/kubeip
           resources:
             requests:
               cpu: 100m
@@ -157,7 +157,7 @@ spec:
         fsGroup: 1001
       containers:
         - name: kubeip
-          image: doitintl/kubeip-agent
+          image: ghcr.io/curvegrid/kubeip
           env:
             - name: TAINT_KEY
               value: kubeip.com/not-ready

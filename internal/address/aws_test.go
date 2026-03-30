@@ -7,8 +7,8 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
-	"github.com/doitintl/kubeip/internal/cloud"
-	mocks "github.com/doitintl/kubeip/mocks/cloud"
+	"github.com/curvegrid/kubeip/internal/cloud"
+	mocks "github.com/curvegrid/kubeip/mocks/cloud"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )

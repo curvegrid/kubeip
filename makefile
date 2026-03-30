@@ -6,11 +6,12 @@ GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 GOTOOL=$(GOCMD) tool
-GOLINT=golangci-lint
-GOMOCK=mockery
-LINT_CONFIG = $(CURDIR)/.golangci.yaml
-
 BIN=$(CURDIR)/.bin
+GOLINT=$(BIN)/golangci-lint
+GOMOCK=$(BIN)/mockery
+LINT_CONFIG = $(CURDIR)/.golangci.yaml
+GOLINT_VERSION = $(shell cat $(CURDIR)/.golangci-lint-version)
+
 BINARY_NAME=kubeip-agent
 TARGETOS   := $(or $(TARGETOS), linux)
 TARGETARCH := $(or $(TARGETARCH), amd64)
@@ -37,10 +38,14 @@ export GOARCH=$(TARGETARCH)
 all: lint test build ; $(info $(M) build, test and deploy ...) @ ## release cycle
 
 # Tools
-setup-lint:
-	$(GOCMD) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.57.1
-setup-mockery:
-	$(GOCMD) install github.com/vektra/mockery/v2@v2.35.2
+setup-bin:
+	@mkdir -p $(BIN)
+
+setup-lint: setup-bin
+	GOBIN=$(BIN) $(GOCMD) install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(GOLINT_VERSION)
+
+setup-mockery: setup-bin
+	GOBIN=$(BIN) $(GOCMD) install github.com/vektra/mockery/v2@v2.35.2
 
 # Tasks
 
@@ -53,7 +58,8 @@ build: ; $(info $(M) building $(GOOS)/$(GOARCH) binary...) @ ## build with local
 lint: setup-lint; $(info $(M) running golangci-lint ...) @ ## run golangci-lint linters
 	# updating path since golangci-lint is looking for go binary and this may lead to
 	# conflict when multiple go versions are installed
-	$Q $(GOLINT) run -v -c $(LINT_CONFIG) --out-format checkstyle ./... > golangci-lint.out
+	$Q $(GOLINT) fmt --diff -c $(LINT_CONFIG)
+	$Q $(GOLINT) run -v -c $(LINT_CONFIG) --output.checkstyle.path=golangci-lint.out ./...
 
 mock: setup-mockery ; $(info $(M) running mockery ...) @ ## run mockery to generate mocks
 	$Q $(GOMOCK) --dir internal --all --keeptree --with-expecter --exported

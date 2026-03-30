@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/compute/metadata"
-	"github.com/doitintl/kubeip/internal/cloud"
+	"github.com/curvegrid/kubeip/internal/cloud"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/api/compute/v1"

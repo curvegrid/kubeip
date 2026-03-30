@@ -4,9 +4,9 @@ import (
 	"context"
 	"strings"
 
-	"github.com/doitintl/kubeip/internal/cloud"
-	"github.com/doitintl/kubeip/internal/config"
-	"github.com/doitintl/kubeip/internal/types"
+	"github.com/curvegrid/kubeip/internal/cloud"
+	"github.com/curvegrid/kubeip/internal/config"
+	"github.com/curvegrid/kubeip/internal/types"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	"github.com/oracle/oci-go-sdk/v65/core"
 	"github.com/pkg/errors"

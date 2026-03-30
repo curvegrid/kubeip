@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	cloud "github.com/doitintl/kubeip/internal/cloud"
+	cloud "github.com/curvegrid/kubeip/internal/cloud"
 	compute "google.golang.org/api/compute/v1"
 
 	context "context"

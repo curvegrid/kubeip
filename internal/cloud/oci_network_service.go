@@ -3,7 +3,7 @@ package cloud
 import (
 	"context"
 
-	"github.com/doitintl/kubeip/internal/types"
+	"github.com/curvegrid/kubeip/internal/types"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	"github.com/oracle/oci-go-sdk/v65/core"
 	"github.com/pkg/errors"

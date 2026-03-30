@@ -48,3 +48,5 @@ temp/
 vendor/
 
 tmp/
+.tmp-gocache/
+.tmp-golangci-cache/
