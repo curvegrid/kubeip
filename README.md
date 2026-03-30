@@ -112,7 +112,7 @@ spec:
         kubeip.com/public: "true"
       containers:
         - name: kubeip
-          image: ghcr.io/curvegrid/kubeip-agent
+          image: ghcr.io/curvegrid/kubeip
           resources:
             requests:
               cpu: 100m
@@ -157,7 +157,7 @@ spec:
         fsGroup: 1001
       containers:
         - name: kubeip
-          image: ghcr.io/curvegrid/kubeip-agent
+          image: ghcr.io/curvegrid/kubeip
           env:
             - name: TAINT_KEY
               value: kubeip.com/not-ready
