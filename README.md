@@ -12,7 +12,7 @@ reliability and ease of use.
 
 ## What happens with KubeIP v1
 
-KubeIP v1 is still available in the [v1-main](https://github.com/doitintl/kubeip/tree/v1-main) branch. No further development is planned. We
+KubeIP v1 is still available in the [v1-main](https://github.com/curvegrid/kubeip/tree/v1-main) branch. No further development is planned. We
 will fix critical bugs and security issues, but we will not add new features.
 
 ## What KubeIP v2 does?
@@ -112,7 +112,7 @@ spec:
         kubeip.com/public: "true"
       containers:
         - name: kubeip
-          image: doitintl/kubeip-agent
+          image: ghcr.io/curvegrid/kubeip-agent
           resources:
             requests:
               cpu: 100m
@@ -157,7 +157,7 @@ spec:
         fsGroup: 1001
       containers:
         - name: kubeip
-          image: doitintl/kubeip-agent
+          image: ghcr.io/curvegrid/kubeip-agent
           env:
             - name: TAINT_KEY
               value: kubeip.com/not-ready
